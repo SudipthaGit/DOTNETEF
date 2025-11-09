@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CSDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="t_category_master">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cat_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_order_details">
+          <Key>
+            <PropertyRef Name="order_id" />
+            <PropertyRef Name="order_by_cust" />
+          </Key>
+          <Property Name="order_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="item_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cat_id" Type="int" Nullable="false" />
+          <Property Name="order_date" Type="date" Nullable="false" />
+          <Property Name="order_by_cust" Type="int" Nullable="false" />
+          <Property Name="isShipped" Type="bit" Nullable="false" />
+          <Property Name="isDelivered" Type="bit" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_user_details">
+          <Key>
+            <PropertyRef Name="u_id" />
+          </Key>
+          <Property Name="u_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="u_name" Type="text" Nullable="false" />
+          <Property Name="u_dob" Type="date" Nullable="false" />
+          <Property Name="u_city" Type="text" />
+          <Property Name="Is_Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__T_order_d__cat_i__7D439ABD">
+          <End Role="t_category_master" Type="Self.t_category_master" Multiplicity="1" />
+          <End Role="T_order_details" Type="Self.T_order_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_category_master">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_order_details">
+              <PropertyRef Name="cat_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_order_d__order__7C4F7684">
+          <End Role="T_user_details" Type="Self.T_user_details" Multiplicity="1" />
+          <End Role="T_order_details" Type="Self.T_order_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_user_details">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="T_order_details">
+              <PropertyRef Name="order_by_cust" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CSDbModelStoreContainer">
+          <EntitySet Name="t_category_master" EntityType="Self.t_category_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_order_details" EntityType="Self.T_order_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_user_details" EntityType="Self.T_user_details" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__T_order_d__cat_i__7D439ABD" Association="Self.FK__T_order_d__cat_i__7D439ABD">
+            <End Role="t_category_master" EntitySet="t_category_master" />
+            <End Role="T_order_details" EntitySet="T_order_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_order_d__order__7C4F7684" Association="Self.FK__T_order_d__order__7C4F7684">
+            <End Role="T_user_details" EntitySet="T_user_details" />
+            <End Role="T_order_details" EntitySet="T_order_details" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CSDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="t_category_master">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cat_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="T_order_details" Relationship="Self.FK__T_order_d__cat_i__7D439ABD" FromRole="t_category_master" ToRole="T_order_details" />
+        </EntityType>
+        <EntityType Name="T_order_details">
+          <Key>
+            <PropertyRef Name="order_id" />
+            <PropertyRef Name="order_by_cust" />
+          </Key>
+          <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="item_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cat_id" Type="Int32" Nullable="false" />
+          <Property Name="order_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="order_by_cust" Type="Int32" Nullable="false" />
+          <Property Name="isShipped" Type="Boolean" Nullable="false" />
+          <Property Name="isDelivered" Type="Boolean" Nullable="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="t_category_master" Relationship="Self.FK__T_order_d__cat_i__7D439ABD" FromRole="T_order_details" ToRole="t_category_master" />
+          <NavigationProperty Name="T_user_details" Relationship="Self.FK__T_order_d__order__7C4F7684" FromRole="T_order_details" ToRole="T_user_details" />
+        </EntityType>
+        <EntityType Name="T_user_details">
+          <Key>
+            <PropertyRef Name="u_id" />
+          </Key>
+          <Property Name="u_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="u_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="u_dob" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="u_city" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Is_Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="T_order_details" Relationship="Self.FK__T_order_d__order__7C4F7684" FromRole="T_user_details" ToRole="T_order_details" />
+        </EntityType>
+        <Association Name="FK__T_order_d__cat_i__7D439ABD">
+          <End Role="t_category_master" Type="Self.t_category_master" Multiplicity="1" />
+          <End Role="T_order_details" Type="Self.T_order_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="t_category_master">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="T_order_details">
+              <PropertyRef Name="cat_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__T_order_d__order__7C4F7684">
+          <End Role="T_user_details" Type="Self.T_user_details" Multiplicity="1" />
+          <End Role="T_order_details" Type="Self.T_order_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_user_details">
+              <PropertyRef Name="u_id" />
+            </Principal>
+            <Dependent Role="T_order_details">
+              <PropertyRef Name="order_by_cust" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CSDbContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="t_category_master" EntityType="Self.t_category_master" />
+          <EntitySet Name="T_order_details" EntityType="Self.T_order_details" />
+          <EntitySet Name="T_user_details" EntityType="Self.T_user_details" />
+          <AssociationSet Name="FK__T_order_d__cat_i__7D439ABD" Association="Self.FK__T_order_d__cat_i__7D439ABD">
+            <End Role="t_category_master" EntitySet="t_category_master" />
+            <End Role="T_order_details" EntitySet="T_order_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__T_order_d__order__7C4F7684" Association="Self.FK__T_order_d__order__7C4F7684">
+            <End Role="T_user_details" EntitySet="T_user_details" />
+            <End Role="T_order_details" EntitySet="T_order_details" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CSDbModelStoreContainer" CdmEntityContainer="CSDbContext">
+          <EntitySetMapping Name="t_category_master">
+            <EntityTypeMapping TypeName="CSDbModel.t_category_master">
+              <MappingFragment StoreEntitySet="t_category_master">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Cat_Name" ColumnName="Cat_Name" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_order_details">
+            <EntityTypeMapping TypeName="CSDbModel.T_order_details">
+              <MappingFragment StoreEntitySet="T_order_details">
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="item_name" ColumnName="item_name" />
+                <ScalarProperty Name="cat_id" ColumnName="cat_id" />
+                <ScalarProperty Name="order_date" ColumnName="order_date" />
+                <ScalarProperty Name="order_by_cust" ColumnName="order_by_cust" />
+                <ScalarProperty Name="isShipped" ColumnName="isShipped" />
+                <ScalarProperty Name="isDelivered" ColumnName="isDelivered" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_user_details">
+            <EntityTypeMapping TypeName="CSDbModel.T_user_details">
+              <MappingFragment StoreEntitySet="T_user_details">
+                <ScalarProperty Name="u_id" ColumnName="u_id" />
+                <ScalarProperty Name="u_name" ColumnName="u_name" />
+                <ScalarProperty Name="u_dob" ColumnName="u_dob" />
+                <ScalarProperty Name="u_city" ColumnName="u_city" />
+                <ScalarProperty Name="Is_Active" ColumnName="Is_Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

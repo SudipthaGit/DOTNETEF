@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CSDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="t_category_master">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cat_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="T_order_details" Relationship="Self.FK__T_order_d__cat_i__7D439ABD" FromRole="t_category_master" ToRole="T_order_details" />
+  </EntityType>
+  <EntityType Name="T_order_details">
+    <Key>
+      <PropertyRef Name="order_id" />
+      <PropertyRef Name="order_by_cust" />
+    </Key>
+    <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="item_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cat_id" Type="Int32" Nullable="false" />
+    <Property Name="order_date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="order_by_cust" Type="Int32" Nullable="false" />
+    <Property Name="isShipped" Type="Boolean" Nullable="false" />
+    <Property Name="isDelivered" Type="Boolean" Nullable="false" />
+    <Property Name="isActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="t_category_master" Relationship="Self.FK__T_order_d__cat_i__7D439ABD" FromRole="T_order_details" ToRole="t_category_master" />
+    <NavigationProperty Name="T_user_details" Relationship="Self.FK__T_order_d__order__7C4F7684" FromRole="T_order_details" ToRole="T_user_details" />
+  </EntityType>
+  <EntityType Name="T_user_details">
+    <Key>
+      <PropertyRef Name="u_id" />
+    </Key>
+    <Property Name="u_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="u_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="u_dob" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="u_city" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Is_Active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="T_order_details" Relationship="Self.FK__T_order_d__order__7C4F7684" FromRole="T_user_details" ToRole="T_order_details" />
+  </EntityType>
+  <Association Name="FK__T_order_d__cat_i__7D439ABD">
+    <End Role="t_category_master" Type="Self.t_category_master" Multiplicity="1" />
+    <End Role="T_order_details" Type="Self.T_order_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="t_category_master">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="T_order_details">
+        <PropertyRef Name="cat_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__T_order_d__order__7C4F7684">
+    <End Role="T_user_details" Type="Self.T_user_details" Multiplicity="1" />
+    <End Role="T_order_details" Type="Self.T_order_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_user_details">
+        <PropertyRef Name="u_id" />
+      </Principal>
+      <Dependent Role="T_order_details">
+        <PropertyRef Name="order_by_cust" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CSDbContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="t_category_master" EntityType="Self.t_category_master" />
+    <EntitySet Name="T_order_details" EntityType="Self.T_order_details" />
+    <EntitySet Name="T_user_details" EntityType="Self.T_user_details" />
+    <AssociationSet Name="FK__T_order_d__cat_i__7D439ABD" Association="Self.FK__T_order_d__cat_i__7D439ABD">
+      <End Role="t_category_master" EntitySet="t_category_master" />
+      <End Role="T_order_details" EntitySet="T_order_details" />
+    </AssociationSet>
+    <AssociationSet Name="FK__T_order_d__order__7C4F7684" Association="Self.FK__T_order_d__order__7C4F7684">
+      <End Role="T_user_details" EntitySet="T_user_details" />
+      <End Role="T_order_details" EntitySet="T_order_details" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,13 @@
+D:\DOTNET2025-26\EFDB\EFDB\bin\Debug\EFDB.exe.config
+D:\DOTNET2025-26\EFDB\EFDB\bin\Debug\EFDB.exe
+D:\DOTNET2025-26\EFDB\EFDB\bin\Debug\EFDB.pdb
+D:\DOTNET2025-26\EFDB\EFDB\bin\Debug\EntityFramework.dll
+D:\DOTNET2025-26\EFDB\EFDB\bin\Debug\EntityFramework.SqlServer.dll
+D:\DOTNET2025-26\EFDB\EFDB\bin\Debug\EntityFramework.xml
+D:\DOTNET2025-26\EFDB\EFDB\bin\Debug\EntityFramework.SqlServer.xml
+D:\DOTNET2025-26\EFDB\EFDB\obj\Debug\EFDB.csproj.AssemblyReference.cache
+D:\DOTNET2025-26\EFDB\EFDB\obj\Debug\EFDB.csproj.CoreCompileInputs.cache
+D:\DOTNET2025-26\EFDB\EFDB\obj\Debug\EFDB.csproj.Up2Date
+D:\DOTNET2025-26\EFDB\EFDB\obj\Debug\EFDB.exe
+D:\DOTNET2025-26\EFDB\EFDB\obj\Debug\EFDB.pdb
+D:\DOTNET2025-26\EFDB\EFDB\obj\Debug\EFDB.exe.config
